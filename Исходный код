@@ -1,0 +1,222 @@
+from tkinter import *
+from tkinter import messagebox
+import pickle
+
+root = Tk()
+root.geometry("1000x1000")
+root.title("Войти в систему")
+root["bg"] = "#d9d4ce"
+
+def registration():
+    text = Label( root, font = "Comfortaa 15", text="Для входа в систему - зарегистируйтесь!")
+    text_name = Label( root, font = "Comfortaa 13", text="Имя:")
+    registr_name = Entry( root, font = "Comfortaa 13", fg = "black", bg = "grey")
+    text_lastname = Label( root, font = "Comfortaa 13",text="Фамилия:")
+    registr_lastname = Entry( root, font = "Comfortaa 13", fg = "black", bg = "grey")
+    text_tele = Label( root, font = "Comfortaa 13",text="Телефон:")
+    registr_tele = Entry( root, font = "Comfortaa 13", fg = "black", bg = "grey")
+    text_log = Label( root, font = "Comfortaa 13",text="Вводите ваш логин:")
+    registr_lodin = Entry( root, font = "Comfortaa 13", fg = "black", bg = "grey")
+    text_password1 = Label( root, font = "Comfortaa 13",text="Вводите ваш пароль:")
+    registr_password1 = Entry( root, font = "Comfortaa 13", fg = "black", bg = "grey")
+    text_password2 = Label ( root, font = "Comfortaa 13",text="Вводите ваш пароль:")
+    registr_password2 = Entry( root, font = "Comfortaa 13", fg = "black", bg = "grey", show="*", )
+    button_registr = Button( root, font = "Comfortaa 13",text="Зарегистрироваться!", bg = "blue", fg = "white", command=lambda: save())
+    text.pack()
+    text_name.pack()
+    registr_name.pack()
+    text_lastname.pack()
+    registr_lastname.pack()
+    text_tele.pack()
+    registr_tele.pack()
+    text_log.pack()
+    registr_lodin.pack()
+    text_password1.pack()
+    registr_password1.pack()
+    text_password2.pack()
+    registr_password2.pack()
+    button_registr.pack()
+
+    def save():
+        login_pass_save = {}
+        login_pass_save[registr_lodin.get()] = registr_password1.get()
+        f = open("login.txt", "wb")
+        pickle.dump(login_pass_save, f)
+        f.close()
+        login()
+
+
+
+
+def login():
+            text_lig = Label( root, font = "Comfortaa 15",text="Поздравляем! Теперь вы можете войти в систему!")
+            text_enter_login = Label(root, font = "Comfortaa 13", text="Введите ваш логин:")
+            enter_login = Entry(root, font = "Comfortaa 13", fg = "black", bg = "grey")
+            text_enter_pass = Label(root, font = "Comfortaa 13", text="Введите ваш пароль:")
+            enter_password = Entry(root, font = "Comfortaa 13", fg = "black", bg = "grey", show="*")
+            button_enter = Button(root, font = "Comfortaa 13", text="Войти", bg = "blue", fg = "white", command=lambda: log_pass())
+            text_lig.pack()
+            text_enter_login.pack()
+            enter_login.pack()
+            text_enter_pass.pack()
+            enter_password.pack()
+            button_enter.pack()
+
+
+
+            def log_pass():
+                f = open("login.txt", "rb")
+                a = pickle.load(f)
+                f.close()
+                if enter_login.get() in a:
+                    if enter_password.get() == a[enter_login.get()]:
+                        messagebox.showinfo("Вход выполнен", "Поздравляем! Вы успешно зарегистрировались!")
+                    else:
+                        messagebox.showerror("Ошибка!", "Вы ввели неверний логин или пароль")
+                else:
+                    messagebox.showerror("Ошибка!", "Неверный логин!")
+
+registration()
+
+root.mainloop()
+
+
+
+
+
+from tkinter import *
+tk = Tk()
+tk.geometry("850x300")
+tk.title("Жанры")
+tk.resizable(False, False)
+tk["bg"] = "grey"
+
+
+
+def button_press1(): print("Фантастика и фэнтези")
+def button_press2(): print("Документальные книги")
+def button_press3(): print("Приключения")
+def button_press4(): print("Научные и научно-популярные книги")
+def button_press5(): print("Религия и духовность")
+def button_press6(): print("Детективы и Триллеры")
+def button_press7(): print("Книги о бизнесе")
+def button_press8(): print("Компьютеры и Интернет")
+
+
+b1 = Button(tk, text="Фантастика и фэнтези", command=button_press1, bg="#9e5603", fg="white")
+b1.place(x=10, y=100, width=200, height=50)
+
+b2 = Button(tk, text="Документальные книги", command=button_press2, bg="#9e5603", fg="white")
+b2.place(x=300, y=100, width=200, height=50)
+
+b3 = Button(tk, text="Приключения", command=button_press3, bg="#9e5603", fg="white")
+b3.place(x=600, y=100, width=200, height=50)
+
+b4 = Button(tk, text="Компьютеры и Интернет", command=button_press8, bg="#9e5603", fg="white")
+b4.place(x=10, y=5, width=200, height=50)
+
+b5 = Button(tk, text="Религия и духовность", command=button_press5, bg="#9e5603", fg="white")
+b5.place(x=300, y=5, width=200, height=50)
+
+b6 = Button(tk, text="Детективы и Триллеры", command=button_press6, bg="#9e5603", fg="white")
+b6.place(x=10, y=200, width=200, height=50)
+
+b7 = Button(tk, text="Книги о бизнесе", command=button_press7, bg="#9e5603", fg="white")
+b7.place(x=600, y=10, width=200, height=50)
+
+b8 = Button(tk, text="Научные и научно-популярные книги", command=button_press4, bg="#9e5603", fg="white")
+b8.place(x=300, y=200, width=500, height=50)
+
+
+
+tk.mainloop()
+
+
+from tkinter import *
+from tkinter import messagebox
+tk = Tk()
+tk.geometry("600x700")
+tk.title("Детективы и Триллеры")
+tk.resizable(False, False)
+
+
+canvas = Canvas(tk, width=600, height=700)
+canvas.pack()
+
+book_png = PhotoImage(file="book.png")
+id_img = canvas.create_image(100,10,anchor=NW,image=book_png)
+
+
+def button_press0(): print("Информация о книге")
+def button_press1(): print("Описание")
+def button_press2(): print("Заказать")
+
+
+
+b0 = Button(tk, text="Информация о книге", command=button_press0, bg="#9e5603", fg="white")
+b0.place(x=200, y=400, width=200, height=50)
+
+
+b1 = Button(tk, text="Описание", command=button_press1, bg="#9e5603", fg="white")
+b1.place(x=200, y=460, width=200, height=50)
+
+b2 = Button(tk, text="Заказать", command=button_press2, bg="#9e5603", fg="white")
+b2.place(x=200, y=520, width=200, height=50)
+
+
+
+
+tk.mainloop()
+
+
+
+
+
+
+
+
+from tkinter import *
+from tkinter import messagebox
+import pickle
+
+root = Tk()
+root.geometry("700x350")
+root.title("Оформление заказа")
+root["bg"] = "#d9d4ce"
+
+def registration():
+    text = Label( root, font = "Comfortaa 15", text="Оформление заказа", bg = "yellow", fg = "black")
+    text_name = Label( root, font = "Comfortaa 13", bg = "#9e5603", fg = "white", text="Имя:")
+    registr_name = Entry( root, font = "Comfortaa 13", fg = "black", bg = "grey")
+    text_lastname = Label( root, font = "Comfortaa 13", bg = "#9e5603", fg = "white", text="Фамилия:")
+    registr_lastname = Entry( root, font = "Comfortaa 13", fg = "black", bg = "grey")
+    text_tele = Label( root, font = "Comfortaa 13", bg = "#9e5603", fg = "white", text="Телефон:")
+    registr_tele = Entry( root, font = "Comfortaa 13", fg = "black", bg = "grey")
+    text_email = Label( root, font = "Comfortaa 13",bg = "#9e5603", fg = "white", text="Электронный адрес:")
+    registr_email = Entry( root, font = "Comfortaa 13", fg = "black", bg = "grey")
+    text_password2 = Label ( root, font = "Comfortaa 13",bg = "#9e5603", fg = "white", text="Вводите пароль вашего аккаунта:")
+    registr_password2 = Entry( root, font = "Comfortaa 13", fg = "black", bg = "grey", show="*", )
+    button_registr = Button( root, font = "Comfortaa 13",text="Оформить заказ", bg = "yellow", fg = "black")
+    text.pack()
+    text_name.pack()
+    registr_name.pack()
+    text_lastname.pack()
+    registr_lastname.pack()
+    text_tele.pack()
+    registr_tele.pack()
+    text_email.pack()
+    registr_email.pack()
+    text_password2.pack()
+    registr_password2.pack()
+    button_registr.pack()
+
+def draw_widgets(self):
+    button_registr = Button(root, font="Comfortaa 13", text="Оформить заказ", bg="yellow", fg="black")
+
+
+
+
+
+registration()
+
+root.mainloop()
